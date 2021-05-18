@@ -14,6 +14,7 @@ CREAR LAS RUTAS HTTP
 ================================*/
 app.get('/mostrar-slide', Slide.getSlide)
 app.post('/crear-slide', Slide.createSlide)
+app.put('/editar-slide/:id', Slide.updateSlide)
 
 /*=================================
 EXPORTAR LA RUTA
