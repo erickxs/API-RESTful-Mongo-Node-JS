@@ -242,12 +242,6 @@ let updateSlide = (req, res) => {
             }
 
             reject(response)
-
-            // return res.json({
-            //   status: 500,
-            //   message: 'Error al editar el slide',
-            //   err,
-            // })
           }
 
           let response = {
@@ -293,6 +287,64 @@ let updateSlide = (req, res) => {
       })
   })
 }
+
+/*===============================
+FUNCIÓN DELETE
+===============================*/
+
+let deleteSlide = (req, res) => {
+  // Capturar el id del slide a eliminar
+  let id = req.params.id
+  // Obtener el cuerpo del formulario
+  let body = req.body
+
+  /*============================================
+  VALIDAR QUE EL SLIDE EXISTA
+  ============================================*/
+  // https://mongoosejs.com/docs/api/model.html#model_Model.findById
+  Slide.findById(id, (err, data) => {
+    // Validar que no ocurra un error en el proceso
+    if (err) {
+      return res.json({
+        status: 500,
+        message: 'Error en el servidor',
+        err,
+      })
+    }
+    // Validar que el slide exista
+    if (!data) {
+      return res.json({
+        status: 400,
+        message: 'No se encontró el slide en la base de datos',
+      })
+    }
+
+    // Borrar la imagen o archivo
+
+    if (fs.existsSync(`./uploads/slide/${data.image}`)) {
+      fs.unlinkSync(`./uploads/slide/${data.image}`)
+    }
+
+    // Borrar registro de mongoDB
+    // https://mongoosejs.com/docs/api/model.html#model_Model.findByIdAndRemove
+
+    Slide.findByIdAndRemove(id, (err, data) => {
+      if (err) {
+        return res.json({
+          status: 400,
+          message: 'Error al eliminar el slide',
+          err,
+        })
+      }
+
+      res.json({
+        status: 200,
+        message: 'El slide se elimino con éxito',
+      })
+    })
+  })
+}
+
 /*=======================================================
 EXPORTAR LAS FUNCIONES DEL CONTROLADOR
 =======================================================*/
@@ -301,4 +353,5 @@ module.exports = {
   getSlide,
   createSlide,
   updateSlide,
+  deleteSlide,
 }

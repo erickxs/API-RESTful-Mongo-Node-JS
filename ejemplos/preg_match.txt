@@ -1,0 +1,63 @@
+Grupos o clases de caracteres
+
+\w Cualquier "palabra" (a-z 0-9 _)
+\W Cualquier NO "palabra”
+\s Espacio (espacio, tabulador, CRLF)
+\S Cualquier NO espacio
+\d Dígitos (0-9)
+\D Cualquier NO dígito
+. (punto) – Cualquier carácter, excepto nueva linea
+
+Meta caracteres
+
+^ Inicio del contexto (o linea en modo multilinea)
+$ Fin del contexto (o linea en modo multilinea)
+[ Inicio del grupo o clase de caracteres
+] Fin del grupo o clase de caracteres
+| Alternativas, ej. (a|b) captura a o b
+( Inicia un subpatron (o captura)
+) Fin del subpatron
+\ Escape de caracteres
+
+Cuantificadores
+
+n* Cero o mas de n
+n+ Uno o mas de n
+n? Uno o ninguno de n
+{n} Exactamente n ocurrencias
+{n,} Al menos n ocurrencias
+{,m} Hasta m ocurrencias
+{n,m} Entre n y m ocurrencias (inclusivo)
+
+Modificadores de contexto
+
+i Insensitivo – no distingue mayúsculas de minúsculas
+m Multilinea - ^ y $ indican el inicio y fin de cada linea
+s Todo - el . (punto) captura todo, incluyendo nueva linea
+x Extendido – comentarios & espacios
+e Evaluar (preg_replace) – interpreta el reemplazo como código PHP
+S Análisis extra del patron
+U El patron es insatisfactorio
+u El patron es tratado como UTF-8
+
+captura basada en puntos
+
+\b Entre palabras (\w)
+\B No entre palabras
+\A Inicio del contexto (^)
+\Z Fin del contexto o fin de linea
+\z Fin del contexto ($)
+\G Primer posición de captura en el contexto
+
+Modificadores de Sub patron y captura
+
+(?:) No captura subpatron - ((?:foo|fu)bar) captura foobar o fubar sin que foo o fu se capture como subpatron
+(?=) Mirar adelante - foo(?=bar) captura foo cuando es seguido de bar
+(?!) Mirar adelante (negativa) - foo(?!bar) captura foo cuando NO es seguido de bar
+(?<=) Mirar atras - (?<=foo)bar captura bar cuando es precedido de foo
+(?<!) Mirar atras (negativa) - (?<!foo)bar captura bar cuando NO es precedido de foo
+(?>) Al menos el subpatron - (?>\d+)bar captura aun cuando bar NO esta presente
+(?(x)) Condicionales de subpatron - (?(3)foo|fu)bar captura foo si el 3er subpatron se capturo, fu si no
+(?#) Comentario - (?# el patron hace x y o z)
+
+
