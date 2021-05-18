@@ -13,6 +13,7 @@ const Slide = require('../controllers/slide.controller')
 CREAR LAS RUTAS HTTP
 ================================*/
 app.get('/mostrar-slide', Slide.getSlide)
+app.post('/crear-slide', Slide.createSlide)
 
 /*=================================
 EXPORTAR LA RUTA
