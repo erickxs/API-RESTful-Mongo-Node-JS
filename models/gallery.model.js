@@ -9,7 +9,7 @@ ESQUEMA PARA EL MODELO CONECTOR A MONGODB
 
 let Schema = mongoose.Schema
 let gallerySchema = new Schema({
-  photo: {
+  image: {
     type: String,
     required: [true, 'La imagen es obligatoria'],
   },
