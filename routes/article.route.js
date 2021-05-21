@@ -12,7 +12,10 @@ const Article = require('../controllers/article.controller')
 /*================================
 CREAR LAS RUTAS HTTP
 ================================*/
-app.get('/mostrar-articulos', Article.getArticle)
+app.get('/mostrar-articulos', Article.getArticles)
+app.post('/crear-articulo', Article.createArticle)
+app.put('/editar-articulo/:id', Article.updateArticle)
+app.delete('/eliminar-articulo/:id', Article.deleteArticle)
 
 /*=================================
 EXPORTAR LA RUTA

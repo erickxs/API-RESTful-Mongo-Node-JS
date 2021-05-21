@@ -9,7 +9,7 @@ ESQUEMA PARA EL MODELO CONECTOR A MONGODB
 
 let Schema = mongoose.Schema
 let articleSchema = new Schema({
-  cover: {
+  image: {
     type: String,
     required: [true, 'La portada es obligatoria'],
   },
