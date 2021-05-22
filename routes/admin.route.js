@@ -9,13 +9,18 @@ IMPORTAR EL CONTROLADOR
 ========================================*/
 const Admin = require('../controllers/admin.controller')
 
+/*=======================================
+IMPORTAR EL MIDDLEWARE
+=======================================*/
+const { tokenVerify } = require('../middlewares/authentication')
+
 /*================================
 CREAR LAS RUTAS HTTP
 ================================*/
-app.get('/mostrar-administradores', Admin.getAdmins)
-app.post('/crear-administrador', Admin.createAdmin)
-app.put('/editar-administrador/:id', Admin.updateAdmin)
-app.delete('/eliminar-administrador/:id', Admin.deleteAdmin)
+app.get('/mostrar-administradores', tokenVerify, Admin.getAdmins)
+app.post('/crear-administrador', tokenVerify, Admin.createAdmin)
+app.put('/editar-administrador/:id', tokenVerify, Admin.updateAdmin)
+app.delete('/eliminar-administrador/:id', tokenVerify, Admin.deleteAdmin)
 app.post('/login', Admin.login)
 
 /*=================================

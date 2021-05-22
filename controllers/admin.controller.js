@@ -283,8 +283,8 @@ let login = (req, res) => {
       {
         data,
       },
-      'noquieroquesesepa',
-      { expiresIn: 60 * 60 * 60 * 30 } // Expira en 30 días
+      process.env.SECRET,
+      { expiresIn: process.env.EXPIRES } // Expira en 30 días
     )
     // Se debe actualizar en el enviroment cada 30 días para poder usarlo en POSTMAN
 
