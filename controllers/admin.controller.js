@@ -4,6 +4,8 @@ IMPORTAR EL MODEL
 const Admin = require('../models/admin.model')
 // Modulo para encriptar contraseñas
 const bcrypt = require('bcrypt')
+// Requerir el módulo para gennerar token de autorización
+const jwt = require('jsonwebtoken')
 
 /*===============================
 FUNCIÓN GET
@@ -239,6 +241,60 @@ let deleteAdmin = (req, res) => {
   })
 }
 
+/*==============================
+FUNCIÓN LOGIN
+==============================*/
+
+let login = (req, res) => {
+  // Obtener el cuerpo del formulario
+
+  let body = req.body
+
+  // Recorrer la base de datos en búsqueda de coincidencia con el usuario
+
+  Admin.findOne({ user: body.user }, (err, data) => {
+    // Validar que no ocurra un error en el proceso
+    if (err) {
+      return res.json({
+        status: 500,
+        message: 'Error en el servidor',
+        err,
+      })
+    }
+    // Validar que el administrador exista
+    if (!data) {
+      return res.json({
+        status: 400,
+        message: 'El usuario es incorrecto',
+      })
+    }
+
+    // Validar que la contraseña sea correcta
+
+    if (!bcrypt.compareSync(body.pass, data.pass)) {
+      return res.json({
+        status: 400,
+        message: 'La contraseña es incorrecta',
+      })
+    }
+
+    // Generar el token de autorización
+    let token = jwt.sign(
+      {
+        data,
+      },
+      'noquieroquesesepa',
+      { expiresIn: 60 * 60 * 60 * 30 } // Expira en 30 días
+    )
+    // Se debe actualizar en el enviroment cada 30 días para poder usarlo en POSTMAN
+
+    res.json({
+      status: 200,
+      token,
+    })
+  })
+}
+
 /*=======================================================
 EXPORTAR LAS FUNCIONES DEL CONTROLADOR
 =======================================================*/
@@ -248,4 +304,5 @@ module.exports = {
   createAdmin,
   updateAdmin,
   deleteAdmin,
+  login,
 }

@@ -16,6 +16,7 @@ app.get('/mostrar-administradores', Admin.getAdmins)
 app.post('/crear-administrador', Admin.createAdmin)
 app.put('/editar-administrador/:id', Admin.updateAdmin)
 app.delete('/eliminar-administrador/:id', Admin.deleteAdmin)
+app.post('/login', Admin.login)
 
 /*=================================
 EXPORTAR LA RUTA
