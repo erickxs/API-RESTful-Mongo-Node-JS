@@ -44,6 +44,7 @@ IMPORTAR LAS RUTAS
 app.use(require('./routes/slide.route'))
 app.use(require('./routes/gallery.route'))
 app.use(require('./routes/article.route'))
+app.use(require('./routes/admin.route'))
 
 /*============================================
 CONEXIÓN A LA BASE DE DATOS
